@@ -1,0 +1,70 @@
+<?php
+
+namespace {{subPath}};
+
+use {{modelPath}};
+
+class {{name}}
+{
+    public function __construct() {
+
+    }
+
+    public function getAll(): array
+    {
+        return {{modelName}}::get();
+    }
+
+    public function create(array $data): {{modelName}}
+    {
+        return {{modelName}}::create($data);
+    }
+
+    public function update($id, array $data): bool
+    {
+        $result = {{modelName}}::find($id);
+
+        if (!$result) {
+            return false;
+        }
+
+        return $result->update($data);
+    }
+
+    public function delete($id): bool
+    {
+        $result = {{modelName}}::find($id);
+
+        if (!$result) {
+            return false;
+        }
+
+        return $result->delete();
+    }
+
+    public function findById($id):? {{modelName}}
+    {
+        return {{modelName}}::find($id);
+    }
+
+    public function findBy($field, $value):? {{modelName}}
+    {
+        return {{modelName}}::where($field, $value)->first();
+    }
+
+    public function getByIds(array $ids): array
+    {
+        return {{modelName}}::whereIn('id', $ids)->get();
+    }
+
+    public function getBy($field, $value): array
+    {
+        return {{modelName}}::whereIn($field, $value)->get();
+    }
+
+    public function exists($field, $value): bool
+    {
+        return {{modelName}}::where($field, $value)->exists();
+    }
+}
+

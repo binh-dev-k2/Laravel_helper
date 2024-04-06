@@ -1,0 +1,32 @@
+<?php
+
+namespace {{subPath}};
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class {{name}} extends FormRequest
+{
+    public function authorize()
+    {
+        return true;
+    }
+
+    public function rules()
+    {
+        $arr = explode('@', $this->route()->getActionName());
+        $action = $arr[1];
+
+        switch ($action) {
+            case '':
+                return [
+
+                ];
+        }
+    }
+
+    public function messages()
+    {
+    }
+
+    {{api}}
+}

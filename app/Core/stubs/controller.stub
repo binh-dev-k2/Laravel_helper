@@ -1,0 +1,23 @@
+<?php
+
+namespace {{subPath}};
+
+use App\Http\Controllers\Controller;
+use {{requestPath}};
+use {{servicePath}};
+
+
+class {{name}} extends Controller
+{
+    protected ${{varServiceName}};
+
+    public function __construct({{serviceName}} ${{varServiceName}}) {
+        $this->{{varServiceName}} = ${{varServiceName}};
+    }
+    public function example({{requestName}} $request) {
+        $data = $request->validated();
+        $result = $this->{{varServiceName}}->getAll();
+
+        return jsonResponse(0, $result);
+    }
+}
