@@ -7,6 +7,16 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Custom Command
+Run: php artisan make:base FunctionName --a
+Options:
+- --a: Migration, Model, Service, Request, Controller 
+- --m: Migration, Model
+- --s: Migration, Model, Service
+- --r: Request
+- --api: Throws an json exception on request (Using with --a or --r).
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
