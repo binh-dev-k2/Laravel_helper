@@ -31,19 +31,13 @@ class MakeFunction extends Command
         }
 
         if ($options['r']) {
-            if ($options['api']) {
-                $functionUtil->createRequest($api = true);
-            } else {
-                $functionUtil->createRequest($api = false);
-            }
+            $isApi = $options['api'] ? true : false;
+            $functionUtil->createRequest($isApi);
         }
 
         if ($options['a']) {
-            if ($options['api']) {
-                $functionUtil->createController($api = true);
-            } else {
-                $functionUtil->createController($api = false);
-            }
+            $isApi = $options['api'] ? true : false;
+            $functionUtil->createController($isApi);
         }
 
         $this->info('Base created successfully.');
