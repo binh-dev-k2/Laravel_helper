@@ -100,10 +100,14 @@ class FunctionUtil extends Command
 
         if (!file_exists($directory['path'])) {
             $stub = $this->getStubContent('request');
+            $useValidation = "";
+            $throwValidation = "";
 
-            $stub = str_replace('{{subPath}}', $directory['subPath'], $stub);
-            $stub = str_replace('{{name}}', $directory['functionName'], $stub);
             if ($api) {
+                $useValidation = <<<EOT
+                                    use Illuminate\Contracts\Validation\Validator;
+                                    use Illuminate\Http\Exceptions\HttpResponseException;
+                                    EOT;
                 $throwValidation = <<<EOT
                                     protected function failedValidation(Validator \$validator)
                                     {
@@ -111,10 +115,12 @@ class FunctionUtil extends Command
                                         throw new HttpResponseException(jsonResponse(1, \$errors));
                                     }
                                     EOT;
-                $stub = str_replace('{{api}}', $throwValidation, $stub);
-            } else {
-                $stub = str_replace('{{api}}', '', $stub);
             }
+
+            $stub = str_replace('{{subPath}}', $directory['subPath'], $stub);
+            $stub = str_replace('{{name}}', $directory['functionName'], $stub);
+            $stub = str_replace('{{useApi}}', $useValidation, $stub);
+            $stub = str_replace('{{api}}', $throwValidation, $stub);
             file_put_contents($directory['path'], $stub);
         } else {
             // $this->info('Request ' . $functionName . ' already exists.');

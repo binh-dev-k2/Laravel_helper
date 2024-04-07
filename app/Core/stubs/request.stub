@@ -3,6 +3,7 @@
 namespace {{subPath}};
 
 use Illuminate\Foundation\Http\FormRequest;
+{{useApi}}
 
 class {{name}} extends FormRequest
 {
