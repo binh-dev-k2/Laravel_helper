@@ -3,6 +3,7 @@
 namespace App\Core\Utils;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class FunctionUtil extends Command
 {
@@ -10,7 +11,7 @@ class FunctionUtil extends Command
 
     public function createMigration(): void
     {
-        $tableName = $this->camelToSnake($this->name) . 's';
+        $tableName = $this->toSnakeCase($this->name) . 's';
         $path = database_path('migrations/' . date('Y_m_d_His') . '_create_' . $tableName . '_table.php');
 
         if (!file_exists($path)) {
@@ -24,7 +25,7 @@ class FunctionUtil extends Command
     public function createModel($subFolder = ''): array
     {
         $directory = $this->prepareDirectory('', 'Models', $subFolder);
-        $tableName = $this->camelToSnake($this->name) . 's';
+        $tableName = $this->toSnakeCase($this->name) . 's';
 
         $this->ensureDirectoryExists($directory['directory']);
 
@@ -100,22 +101,8 @@ class FunctionUtil extends Command
 
         if (!file_exists($directory['path'])) {
             $stub = $this->getStubContent('request');
-            $useValidation = "";
-            $throwValidation = "";
-
-            if ($api) {
-                $useValidation = <<<EOT
-                                    use Illuminate\Contracts\Validation\Validator;
-                                    use Illuminate\Http\Exceptions\HttpResponseException;
-                                    EOT;
-                $throwValidation = <<<EOT
-                                    protected function failedValidation(Validator \$validator)
-                                    {
-                                        \$errors = \$validator->errors()->all();
-                                        throw new HttpResponseException(jsonResponse(1, \$errors));
-                                    }
-                                    EOT;
-            }
+            $useValidation = $api ? "use Illuminate\Contracts\Validation\Validator;\nuse Illuminate\Http\Exceptions\HttpResponseException;\n" : '';
+            $throwValidation = $api ? "protected function failedValidation(Validator \$validator)\n{\n    \$errors = \$validator->errors()->all();\n    throw new HttpResponseException(jsonResponse(1, \$errors));\n}\n" : '';
 
             $stub = str_replace('{{subPath}}', $directory['subPath'], $stub);
             $stub = str_replace('{{name}}', $directory['functionName'], $stub);
@@ -185,23 +172,9 @@ class FunctionUtil extends Command
         ];
     }
 
-    function camelToSnake($camelCase)
+    function toSnakeCase($string)
     {
-        $snakeCase = '';
-        $i = 0;
-        $len = strlen($camelCase);
-        while ($i < $len) {
-            if (ctype_upper($camelCase[$i])) {
-                if ($i !== 0) {
-                    $snakeCase .= '_';
-                }
-                $snakeCase .= strtolower($camelCase[$i]);
-            } else {
-                $snakeCase .= $camelCase[$i];
-            }
-            $i++;
-        }
-        return $snakeCase;
+        return Str::snake($string);
     }
 
     public function declareName(string $name): void
