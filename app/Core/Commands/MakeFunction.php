@@ -28,7 +28,7 @@ class MakeFunction extends Command
         }
 
         if ($options['s']) {
-            $functionUtil->createModel($subFolder);
+            $functionUtil->createService($subFolder);
         }
 
         if ($options['r']) {
