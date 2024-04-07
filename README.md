@@ -11,11 +11,11 @@
 Run: ```php artisan make:base FunctionName --a```
 
 Options:
-- --a: Migration, Model, Service, Request, Controller 
-- --m: Migration, Model
-- --s: Migration, Model, Service
-- --r: Request
-- --api: Throws an json exception on request (Using with --a or --r).
+- ```--a```: Migration, Model, Service, Request, Controller 
+- ```--m```: Migration, Model
+- ```--s```: Migration, Model, Service
+- ```--r```: Request
+- ```--api```: Throws an json exception on request (Using with --a or --r).
 
 
 ## About Laravel
