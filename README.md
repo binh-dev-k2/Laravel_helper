@@ -16,7 +16,7 @@ Options:
 - ```--s```: Migration, Model, Service
 - ```--r```: Request
 - ```--api```: Throws an json exception on request (Using with --a or --r).
-- ```--sub=SubFolder/OrAnyThingElse```: Sub folder Option.
+- ```--sub=SubFolder/OrAnyThingElse```: Sub folder Option for Model, Request, Service and Controller.
 
 
 ## About Laravel
