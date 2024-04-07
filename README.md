@@ -8,7 +8,7 @@
 </p>
 
 ## Custom Command
-Run: php artisan make:base FunctionName --a
+Run: php artisan make:base FunctionName --a.
 Options:
 - --a: Migration, Model, Service, Request, Controller 
 - --m: Migration, Model
